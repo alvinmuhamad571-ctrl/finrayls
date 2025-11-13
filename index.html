@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harmoni Musik Premium</title>
+    <title>Cerita yang Menakjubkan Sekali</title>
     <!-- Muat Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Konfigurasi Tailwind untuk warna dan font Inter -->
@@ -13,10 +12,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#0A0A0A', // Lebih gelap
-                        'card-dark': '#1F1F1F',
-                        'accent': '#3B82F6', // Blue 500
-                        'accent-light': '#60A5FA',
+                        'primary-dark': '#0A0A0A', // Hitam/Sangat gelap
+                        'card-dark': '#1F1F1F',    // Abu-abu gelap untuk kartu
+                        'accent': '#3B82F6',       // Biru yang cerah (Blue 500)
+                        'accent-light': '#60A5FA', // Biru yang lebih terang
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -29,7 +28,7 @@
         /* Menggunakan font Inter dari Google Fonts */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         
-        /* Tinggi layar penuh untuk tampilan iPhone */
+        /* Tinggi layar penuh dan bingkai untuk tampilan ponsel */
         #app-container {
             height: 100vh;
             max-width: 420px; /* Lebar maksimal seperti iPhone */
@@ -37,11 +36,12 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            border: 2px solid #374151; /* Border tipis untuk kesan bingkai ponsel */
-            border-radius: 20px;
+            border: 3px solid #374151; /* Border untuk kesan bingkai */
+            border-radius: 24px; /* Sudut lebih membulat */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
-        /* Gaya khusus untuk scrollbar agar tidak terlalu mengganggu */
+        /* Gaya khusus untuk scrollbar agar tidak terlalu mengganggu di mobile */
         .scrollable-content::-webkit-scrollbar {
             width: 0;
             height: 0;
@@ -53,21 +53,22 @@
     </style>
 </head>
 <body class="bg-gray-900 font-sans text-white">
-    <div id="app-container" class="shadow-2xl">
+    <div id="app-container">
 
         <!-- HEADER APLIKASI DAN SEARCH BAR -->
         <header class="p-4 pt-8 bg-primary-dark sticky top-0 z-10 border-b border-card-dark">
             <div class="flex justify-between items-center mb-4">
-                <h1 class="text-3xl font-extrabold text-accent">Harmoni</h1>
+                <h1 class="text-2xl font-extrabold text-accent">Cerita yang Menakjubkan Sekali</h1>
                 <!-- Icon Profil -->
-                <button onclick="showMessage('Pengaturan Profil')" class="p-2 rounded-full bg-card-dark hover:bg-gray-700 transition">
+                <button onclick="showMessage('Pengaturan Pengguna')" class="p-2 rounded-full bg-card-dark hover:bg-gray-700 transition">
+                    <!-- Icon Speaker/Mic -->
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-gray-300">
-                        <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.61-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                        <path d="M11.5 2.25a.75.75 0 0 0-1.5 0v2.75h-2.5a.75.75 0 0 0-.75.75v10.5a.75.75 0 0 0 .75.75h2.5v2.75a.75.75 0 0 0 1.5 0v-2.75h2.5a.75.75 0 0 0 .75-.75V5.75a.75.75 0 0 0-.75-.75h-2.5V2.25Z" />
                     </svg>
                 </button>
             </div>
             <div class="relative">
-                <input type="text" placeholder="Cari lagu, artis, atau podcast..." class="w-full py-2 pl-10 pr-4 bg-card-dark border border-gray-700 rounded-full text-sm text-white placeholder-gray-500 focus:ring-accent focus:border-accent" onfocus="showMessage('Membuka Pencarian Lengkap')">
+                <input type="text" placeholder="Cari cerita, host, atau topik..." class="w-full py-2 pl-10 pr-4 bg-card-dark border border-gray-700 rounded-full text-sm text-white placeholder-gray-500 focus:ring-accent focus:border-accent" onfocus="showMessage('Membuka Halaman Pencarian')">
                 <!-- Icon Pencarian di dalam input -->
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -78,76 +79,108 @@
         <!-- KONTEN UTAMA APLIKASI (Area yang dapat di-scroll) -->
         <main class="flex-grow overflow-y-auto p-4 scrollable-content pb-28"> 
             
-            <!-- Banner Utama (Iklan Premium) -->
-            <div class="bg-accent p-4 rounded-xl shadow-lg mb-6 flex items-center space-x-4 text-white hover:bg-accent-light transition duration-200 cursor-pointer" onclick="showMessage('Upgrade ke Premium!')">
-                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
-                    <!-- Icon Mahkota (Crown) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-white">
-                        <path fill-rule="evenodd" d="M12.316 3.051A.75.75 0 0 1 12 3.75v5.118l-.879.585A1.5 1.5 0 0 1 9.75 9h-3a1.5 1.5 0 0 1-1.403-1.032l-1.354 3.659A2.25 2.25 0 0 0 6 12.75h12a2.25 2.25 0 0 0 2.007-1.453l-1.354-3.659A1.5 1.5 0 0 1 14.25 9h-3a1.5 1.5 0 0 1-1.437-.956l-.879-.585V3.75c0-.414.324-.747.72-.692ZM12 12c-4.142 0-7.5 3.134-7.5 7s3.358 7 7.5 7 7.5-3.134 7.5-7-3.358-7-7.5-7Z" clip-rule="evenodd" />
+            <!-- Banner Undangan Eksklusif -->
+            <div class="bg-blue-900 p-4 rounded-xl shadow-lg mb-6 flex items-start space-x-4 text-white cursor-pointer hover:bg-blue-800 transition duration-200" onclick="showMessage('Bergabung dengan Komunitas Eksklusif!')">
+                <div class="w-10 h-10 bg-white bg-opacity-20 rounded-full flex items-center justify-center mt-1">
+                    <!-- Icon Bintang (Star) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-yellow-300">
+                        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
                     </svg>
                 </div>
                 <div>
-                    <p class="text-sm font-semibold opacity-90">Nikmati Tanpa Iklan</p>
-                    <h2 class="text-xl font-bold">Coba Premium Sekarang</h2>
+                    <h2 class="text-xl font-bold">Dengarkan Episode Eksklusif</h2>
+                    <p class="text-sm opacity-90 mt-1">Hanya tersedia untuk pendengar setia kami. Klik untuk info lebih lanjut.</p>
                 </div>
             </div>
 
-            <!-- Bagian Moods dan Aktivitas -->
+            <!-- Bagian Kategori Populer -->
             <section class="mb-8">
-                <h2 class="text-2xl font-bold mb-4">Moods & Aktivitas</h2>
-                <div class="grid grid-cols-3 gap-3">
-                    <div onclick="showMessage('Memuat: Fokus Bekerja')" class="h-24 bg-purple-700 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Fokus</div>
-                    <div onclick="showMessage('Memuat: Lari Pagi Pop')" class="h-24 bg-green-700 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Olahraga</div>
-                    <div onclick="showMessage('Memuat: Chill Malam Hari')" class="h-24 bg-pink-700 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Santai</div>
+                <h2 class="text-2xl font-bold mb-4">Kategori Populer</h2>
+                <div class="grid grid-cols-2 gap-3">
+                    <div onclick="showMessage('Memuat Kategori: Misteri')" class="h-24 bg-red-700/80 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Misteri & Horor</div>
+                    <div onclick="showMessage('Memuat Kategori: Teknologi')" class="h-24 bg-teal-700/80 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Teknologi & Sains</div>
+                    <div onclick="showMessage('Memuat Kategori: Sejarah')" class="h-24 bg-amber-700/80 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Sejarah Dunia</div>
+                    <div onclick="showMessage('Memuat Kategori: Motivasi')" class="h-24 bg-accent/80 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Motivasi & Bisnis</div>
                 </div>
             </section>
             
-            <!-- Bagian Rekomendasi Hari Ini -->
+            <!-- Bagian Episode Terbaru -->
             <section class="mb-8">
-                <h2 class="text-2xl font-bold mb-4">Rekomendasi Hari Ini</h2>
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Kartu Lagu/Album 1 -->
-                    <div onclick="selectSong('Senja di Jakarta', 'Band Indie', 255)" class="card bg-card-dark p-3 rounded-xl hover:bg-gray-800 transition duration-200 cursor-pointer">
-                        <img src="https://placehold.co/150x150/3B82F6/ffffff?text=Senja" onerror="this.src='https://placehold.co/150x150/3B82F6/ffffff?text=Senja';" alt="Album Cover A" class="w-full h-auto rounded-lg mb-2 shadow-md">
-                        <h3 class="font-semibold truncate">Senja di Jakarta</h3>
-                        <p class="text-sm text-gray-400 truncate">Band Indie</p>
+                <h2 class="text-2xl font-bold mb-4">Episode Terbaru</h2>
+                <div class="space-y-4">
+                    <!-- Episode 1 -->
+                    <div onclick="selectEpisode('Perjalanan ke Bintang Kuno', 'The Sci-Fi Club', 2700)" class="flex items-center space-x-4 bg-card-dark p-3 rounded-xl hover:bg-gray-800 transition duration-200 cursor-pointer">
+                        <img src="https://placehold.co/60x60/3B82F6/ffffff?text=E1" onerror="this.src='https://placehold.co/60x60/3B82F6/ffffff?text=E1';" alt="Cover Episode" class="w-16 h-16 rounded-lg shadow-md">
+                        <div class="flex-grow">
+                            <h3 class="font-semibold truncate">Perjalanan ke Bintang Kuno</h3>
+                            <p class="text-sm text-gray-400 truncate">The Sci-Fi Club - 45 min</p>
+                        </div>
+                        <button class="p-2 text-accent">
+                            <!-- Icon Unduh -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.36-3.36a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.36 3.36V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
                     </div>
-                    <!-- Kartu Lagu/Album 2 -->
-                    <div onclick="selectSong('Cinta Tak Biasa', 'Penyanyi Pop', 180)" class="card bg-card-dark p-3 rounded-xl hover:bg-gray-800 transition duration-200 cursor-pointer">
-                        <img src="https://placehold.co/150x150/FBBF24/1F2937?text=Cinta" onerror="this.src='https://placehold.co/150x150/FBBF24/1F2937?text=Cinta';" alt="Album Cover B" class="w-full h-auto rounded-lg mb-2 shadow-md">
-                        <h3 class="font-semibold truncate">Cinta Tak Biasa</h3>
-                        <p class="text-sm text-gray-400 truncate">Penyanyi Pop</p>
+                    <!-- Episode 2 -->
+                    <div onclick="selectEpisode('Rahasia Kota Hilang', 'Host: Maya Sari', 1980)" class="flex items-center space-x-4 bg-card-dark p-3 rounded-xl hover:bg-gray-800 transition duration-200 cursor-pointer">
+                        <img src="https://placehold.co/60x60/FBBF24/1F2937?text=E2" onerror="this.src='https://placehold.co/60x60/FBBF24/1F2937?text=E2';" alt="Cover Episode" class="w-16 h-16 rounded-lg shadow-md">
+                        <div class="flex-grow">
+                            <h3 class="font-semibold truncate">Rahasia Kota Hilang</h3>
+                            <p class="text-sm text-gray-400 truncate">Host: Maya Sari - 33 min</p>
+                        </div>
+                        <button class="p-2 text-accent">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v11.69l3.36-3.36a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.36 3.36V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </section>
 
-            <!-- Bagian Genre Populer -->
+            <!-- Bagian Acara Populer (Shows) -->
             <section class="mb-8">
-                <h2 class="text-2xl font-bold mb-4">Genre Populer</h2>
-                <div class="flex space-x-3 overflow-x-auto scrollable-content pb-2">
-                    <!-- Genre Card 1 -->
-                    <div onclick="showMessage('Memuat Genre: Jazz')" class="flex-shrink-0 w-28 h-28 bg-red-600 rounded-xl flex items-end p-3 font-bold shadow-md hover:opacity-80 transition cursor-pointer">Jazz</div>
-                    <!-- Genre Card 2 -->
-                    <div onclick="showMessage('Memuat Genre: Rock')" class="flex-shrink-0 w-28 h-28 bg-yellow-600 rounded-xl flex items-end p-3 font-bold shadow-md hover:opacity-80 transition cursor-pointer">Rock</div>
-                    <!-- Genre Card 3 -->
-                    <div onclick="showMessage('Memuat Genre: Akustik')" class="flex-shrink-0 w-28 h-28 bg-green-600 rounded-xl flex items-end p-3 font-bold shadow-md hover:opacity-80 transition cursor-pointer">Akustik</div>
+                <h2 class="text-2xl font-bold mb-4">Acara Populer</h2>
+                <div class="flex space-x-4 overflow-x-auto scrollable-content pb-2">
+                    <!-- Show Card 1 -->
+                    <div onclick="showMessage('Melihat Acara: Kisah Fantasi')" class="flex-shrink-0 w-28 text-center cursor-pointer">
+                        <img src="https://placehold.co/112x112/5B21B6/ffffff?text=FANTASI" onerror="this.src='https://placehold.co/112x112/5B21B6/ffffff?text=FANTASI';" alt="Cover Podcast" class="w-28 h-28 rounded-xl shadow-lg mb-2 hover:opacity-90 transition">
+                        <p class="text-sm font-semibold truncate">Kisah Fantasi</p>
+                    </div>
+                    <!-- Show Card 2 -->
+                    <div onclick="showMessage('Melihat Acara: Dunia Crypto')" class="flex-shrink-0 w-28 text-center cursor-pointer">
+                        <img src="https://placehold.co/112x112/10B981/ffffff?text=CRYPTO" onerror="this.src='https://placehold.co/112x112/10B981/ffffff?text=CRYPTO';" alt="Cover Podcast" class="w-28 h-28 rounded-xl shadow-lg mb-2 hover:opacity-90 transition">
+                        <p class="text-sm font-semibold truncate">Dunia Crypto</p>
+                    </div>
+                    <!-- Show Card 3 -->
+                    <div onclick="showMessage('Melihat Acara: Resep Kuno')" class="flex-shrink-0 w-28 text-center cursor-pointer">
+                        <img src="https://placehold.co/112x112/D97706/ffffff?text=RESEP" onerror="this.src='https://placehold.co/112x112/D97706/ffffff?text=RESEP';" alt="Cover Podcast" class="w-28 h-28 rounded-xl shadow-lg mb-2 hover:opacity-90 transition">
+                        <p class="text-sm font-semibold truncate">Resep Kuno</p>
+                    </div>
                 </div>
             </section>
 
         </main>
 
         <!-- MINI PLAYER BAR (Fixed di Bawah, Ditingkatkan) -->
-        <div id="mini-player" class="mini-player fixed bottom-16 left-0 right-0 max-w-lg mx-auto p-3 bg-card-dark rounded-xl shadow-2xl transition-transform duration-300 ease-in-out transform translate-y-full opacity-0 z-20" style="left: 50%; transform: translateX(-50%) translateY(100%); max-width: 400px;">
-            <!-- Track Info & Controls -->
+        <div id="mini-player" class="fixed bottom-16 left-0 right-0 max-w-lg mx-auto p-3 bg-card-dark rounded-xl shadow-2xl transition-transform duration-300 ease-in-out opacity-0 z-20" style="left: 50%; transform: translateX(-50%) translateY(100%); max-width: 400px;">
+            <!-- Episode Info & Controls -->
             <div class="flex items-center space-x-3">
-                <img id="player-cover" src="https://placehold.co/40x40/ffffff/121212?text=🎶" alt="Cover" class="w-10 h-10 rounded-lg shadow">
+                <img id="player-cover" src="https://placehold.co/40x40/ffffff/121212?text=🎧" alt="Cover" class="w-10 h-10 rounded-lg shadow">
                 <div class="flex-grow overflow-hidden">
-                    <p id="player-song-title" class="text-sm font-bold truncate text-white">Tidak ada lagu</p>
-                    <p id="player-artist" class="text-xs text-gray-400 truncate">Pilih lagu untuk diputar</p>
+                    <p id="player-episode-title" class="text-sm font-bold truncate text-white">Tidak ada episode</p>
+                    <p id="player-show-name" class="text-xs text-gray-400 truncate">Pilih episode untuk didengarkan</p>
                 </div>
                 <div class="flex space-x-3">
+                    <!-- Tombol Mundur 15 detik -->
+                    <button onclick="showMessage('Mundur 15 detik')" class="p-2 rounded-full text-white hover:bg-gray-700 transition duration-150">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M17 19.5a.75.75 0 0 1-1.39.52c-.114-.247-.468-.535-.913-.807-.71-.433-1.554-1-2.617-1.423a13.06 13.06 0 0 1-3.666-1.55 13.06 13.06 0 0 1-3.666-1.55l-.265-.133A.75.75 0 0 1 5 15.5V12a.75.75 0 0 1 1.157-.63l.265.133c1.17.587 2.37.94 3.593 1.056a13.06 13.06 0 0 0 3.666 1.55 13.06 13.06 0 0 0 3.666 1.55l.265.133A.75.75 0 0 1 19 17.25V19a.75.75 0 0 1-2 0ZM12 9a6 6 0 1 0 0 12 6 6 0 0 0 0-12ZM8.25 12a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z" />
+                        </svg>
+                    </button>
+                    
                     <!-- Tombol Putar/Jeda -->
-                    <button id="play-pause-btn" onclick="togglePlayPause()" class="p-2 rounded-full text-white bg-accent hover:bg-accent-light transition duration-150">
+                    <button id="play-pause-btn" onclick="togglePlayPause()" class="p-3 rounded-full text-white bg-accent hover:bg-accent-light transition duration-150">
                         <!-- Icon Putar (Play) - Tampilan default -->
                         <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
                             <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286l-11.54 6.348c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
@@ -157,17 +190,16 @@
                             <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75H16.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <!-- Tombol Berikutnya -->
-                    <button onclick="showMessage('Lagu Berikutnya')" class="p-2 rounded-full text-white bg-gray-700 hover:bg-gray-600 transition duration-150">
-                        <!-- Icon Berikutnya (Skip Forward) -->
+                    <!-- Tombol Maju 30 detik -->
+                    <button onclick="showMessage('Maju 30 detik')" class="p-2 rounded-full text-white hover:bg-gray-700 transition duration-150">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                            <path d="M5.5 4.5A.5.5 0 0 1 6 4h.5a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-15ZM10.293 11.207a1 1 0 0 1 0 1.586l7.707 5.78V5.428l-7.707 5.78Z" />
+                            <path fill-rule="evenodd" d="M12 9a6 6 0 1 0 0 12 6 6 0 0 0 0-12ZM14.25 12a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V13.5h-3a.75.75 0 0 1-.75-.75.75.75 0 0 1 .75-.75h3.75ZM7.5 5.25A.75.75 0 0 1 8.89 4.73c.114.247.468.535.913.807.71.433 1.554 1 2.617 1.423A13.06 13.06 0 0 0 16.086 8.5c1.238.115 2.438.468 3.593 1.055l.265.134A.75.75 0 0 1 21 9.75v-2.5a.75.75 0 0 1-.75-.75.75.75 0 0 1-.52-.112l-.265-.133A13.06 13.06 0 0 0 16.086 5.5c-1.063-.423-1.907-1-2.617-1.423-.445-.272-.799-.56-.913-.807a.75.75 0 0 1-.22-.52.75.75 0 0 1 1.39-.52c.114.247.468.535.913.807.71.433 1.554 1 2.617 1.423a13.06 13.06 0 0 1 3.666 1.55l.265.133A.75.75 0 0 1 21 9.75v2.5a.75.75 0 0 1-1.157.63l-.265-.133A13.06 13.06 0 0 0 15.75 12a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0v-3.75h-3.75a.75.75 0 0 1 0-1.5h3.75V8.25a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                         </svg>
                     </button>
                 </div>
             </div>
             
-            <!-- Progress Bar (Baru) -->
+            <!-- Progress Bar -->
             <div class="mt-3 flex items-center space-x-2 text-xs text-gray-400">
                 <span id="current-time">0:00</span>
                 <div class="flex-grow h-1 bg-gray-700 rounded-full">
@@ -189,21 +221,22 @@
                     </svg>
                     <span class="text-xs mt-1 font-semibold">Beranda</span>
                 </button>
-                <!-- Jelajahi -->
-                <button onclick="showMessage('Halaman Jelajahi')" class="flex flex-col items-center text-gray-400 hover:text-white transition">
-                    <!-- Icon Kompas (Explore) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                <!-- Acara (Shows) -->
+                <button onclick="showMessage('Halaman Daftar Acara')" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+                    <!-- Icon Microphone -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M8.25 4.5a.75.75 0 0 1 .75-.75h6a.75.75 0 0 1 .75.75v.255a22.454 22.454 0 0 1-.479.875 5.922 5.922 0 0 0-.829.479.75.75 0 0 1-.397 1.097v2.247c0 .167.086.327.234.417a21.45 21.45 0 0 0 3.829 1.83.75.75 0 0 1 .371 1.25l-2.001 2.5a.75.75 0 0 1-1.154.12l-2.227-2.226a.75.75 0 0 0-.47-.222H12a.75.75 0 0 0-.47.222L9.303 16.59a.75.75 0 0 1-1.154-.12l-2.001-2.5a.75.75 0 0 1 .371-1.25 21.453 21.453 0 0 0 3.829-1.83A.75.75 0 0 1 9 9.324V7.078a.75.75 0 0 1-.397-1.097 5.92 5.92 0 0 0-.829-.478 22.454 22.454 0 0 1-.479-.875V4.5Z" />
                     </svg>
-                    <span class="text-xs mt-1">Jelajahi</span>
+                    <span class="text-xs mt-1">Acara</span>
                 </button>
-                <!-- Perpustakaan -->
-                <button onclick="showMessage('Halaman Perpustakaan')" class="flex flex-col items-center text-gray-400 hover:text-white transition">
-                    <!-- Icon Buku (Library) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3.051.513A3.075 3.075 0 0 0 3 9.75v10.5M12 6.042A8.967 8.967 0 0 1 18 3.75c1.052 0 2.062.18 3.051.513A3.075 3.075 0 0 1 21 9.75v10.5M12 6.042V21m0-10.5H5.25M12 17.25h4.5" />
+                <!-- Unduhan -->
+                <button onclick="showMessage('Halaman Unduhan')" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+                    <!-- Icon Unduhan (Download) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M12.75 12.75a.75.75 0 0 1 1.5 0v2.25l2.25-2.25a.75.75 0 0 1 1.06 1.06l-3.5 3.5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 0 1 1.06-1.06l2.25 2.25V12.75Z" />
+                        <path fill-rule="evenodd" d="M12 2.25A.75.75 0 0 1 12.75 3v9.526l2.05-2.05a.75.75 0 1 1 1.06 1.06l-3.5 3.5a.75.75 0 0 1-1.06 0l-3.5-3.5a.75.75 0 1 1 1.06-1.06l2.05 2.05V3a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
                     </svg>
-                    <span class="text-xs mt-1">Perpustakaan</span>
+                    <span class="text-xs mt-1">Unduhan</span>
                 </button>
             </div>
         </nav>
@@ -219,28 +252,37 @@
     </div>
 
     <script>
-        // Variabel Global untuk status pemutar
+        // Variabel Global untuk status pemutar podcast
         let isPlaying = false;
-        let currentSong = { title: null, artist: null, duration: 0, timeElapsed: 0 };
+        let currentEpisode = { title: null, show: null, duration: 0, timeElapsed: 0 };
         let progressInterval = null;
 
         const miniPlayer = document.getElementById('mini-player');
-        const playerTitle = document.getElementById('player-song-title');
-        const playerArtist = document.getElementById('player-artist');
+        const playerTitle = document.getElementById('player-episode-title');
+        const playerShow = document.getElementById('player-show-name');
         const playIcon = document.getElementById('play-icon');
         const pauseIcon = document.getElementById('pause-icon');
         const playerCover = document.getElementById('player-cover');
         
-        // Elemen Progress Bar (Baru)
+        // Elemen Progress Bar
         const progressBar = document.getElementById('progress-bar');
         const currentTimeDisplay = document.getElementById('current-time');
         const totalTimeDisplay = document.getElementById('total-time');
 
-        // Helper untuk format detik ke MM:SS
+        // Helper untuk format detik ke MM:SS (untuk durasi podcast yang panjang)
         function formatTime(totalSeconds) {
-            const minutes = Math.floor(totalSeconds / 60);
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
             const seconds = Math.floor(totalSeconds % 60);
-            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            let parts = [];
+            if (hours > 0) {
+                parts.push(hours.toString());
+            }
+            parts.push(minutes.toString().padStart(hours > 0 ? 2 : 1, '0'));
+            parts.push(seconds.toString().padStart(2, '0'));
+
+            return parts.join(':');
         }
         
         // --- Fungsi Modal Message Box (Pengganti alert) ---
@@ -257,25 +299,25 @@
             messageBox.classList.remove('opacity-100');
         }
         
-        // --- Fungsi Pemutar Musik ---
+        // --- Fungsi Pemutar Podcast ---
 
         /**
-         * Memilih lagu dan mengaktifkan mini player.
-         * @param {string} title - Judul lagu.
-         * @param {string} artist - Nama artis/band.
-         * @param {number} duration - Durasi lagu dalam detik.
+         * Memilih episode dan mengaktifkan mini player.
+         * @param {string} title - Judul Episode.
+         * @param {string} show - Nama Acara/Host.
+         * @param {number} duration - Durasi episode dalam detik.
          */
-        function selectSong(title, artist, duration) {
+        function selectEpisode(title, show, duration) {
             // Hentikan interval lama jika ada
             clearInterval(progressInterval);
             
-            // Inisialisasi lagu baru
-            currentSong = { title, artist, duration, timeElapsed: 0 };
+            // Inisialisasi episode baru
+            currentEpisode = { title, show, duration, timeElapsed: 0 };
             
             // Perbarui UI mini player
             playerTitle.innerText = title;
-            playerArtist.innerText = artist;
-            playerCover.src = "https://placehold.co/40x40/3B82F6/ffffff?text=🎶";
+            playerShow.innerText = show;
+            playerCover.src = "https://placehold.co/40x40/3B82F6/ffffff?text=🎧";
             totalTimeDisplay.innerText = formatTime(duration);
             
             // Tampilkan mini player
@@ -284,19 +326,19 @@
             
             // Mulai putar secara otomatis setelah dipilih
             setPlaying(true);
-            showMessage(`Memutar: ${title} - ${artist}`);
+            showMessage(`Memutar: ${title} dari ${show}`);
         }
 
         /**
          * Mengubah status Putar/Jeda.
          */
         function togglePlayPause() {
-            if (!currentSong.title) {
-                showMessage("Pilih lagu terlebih dahulu!");
+            if (!currentEpisode.title) {
+                showMessage("Pilih episode podcast terlebih dahulu!");
                 return;
             }
             setPlaying(!isPlaying);
-            showMessage(isPlaying ? "Lagu Dijeda" : "Lagu Diputar");
+            showMessage(isPlaying ? "Episode Dijeda" : "Episode Diputar");
         }
 
         /**
@@ -322,25 +364,24 @@
         }
         
         /**
-         * Memperbarui bilah progres dan waktu lagu (simulasi).
+         * Memperbarui bilah progres dan waktu episode (simulasi).
          */
         function updateProgress() {
-            if (currentSong.timeElapsed < currentSong.duration) {
-                currentSong.timeElapsed += 1;
+            if (currentEpisode.timeElapsed < currentEpisode.duration) {
+                currentEpisode.timeElapsed += 1;
                 
-                const percent = (currentSong.timeElapsed / currentSong.duration) * 100;
+                const percent = (currentEpisode.timeElapsed / currentEpisode.duration) * 100;
                 progressBar.style.width = `${percent}%`;
-                currentTimeDisplay.innerText = formatTime(currentSong.timeElapsed);
+                currentTimeDisplay.innerText = formatTime(currentEpisode.timeElapsed);
                 
             } else {
-                // Lagu selesai
+                // Episode selesai
                 clearInterval(progressInterval);
-                currentSong.timeElapsed = 0;
+                currentEpisode.timeElapsed = 0;
                 progressBar.style.width = '0%';
                 setPlaying(false);
-                showMessage(`Selesai: ${currentSong.title}. Memutar ulang.`);
-                // Opsi: Panggil selectSong lagi untuk putar ulang
-                selectSong(currentSong.title, currentSong.artist, currentSong.duration);
+                showMessage(`Selesai: ${currentEpisode.title}.`);
+                // Opsi: Tetap di akhir atau pindah ke episode berikutnya
             }
         }
 
