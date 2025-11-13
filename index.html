@@ -1,1 +1,358 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmoni Musik Premium</title>
+    <!-- Muat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Konfigurasi Tailwind untuk warna dan font Inter -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#0A0A0A', // Lebih gelap
+                        'card-dark': '#1F1F1F',
+                        'accent': '#3B82F6', // Blue 500
+                        'accent-light': '#60A5FA',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Menggunakan font Inter dari Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Tinggi layar penuh untuk tampilan iPhone */
+        #app-container {
+            height: 100vh;
+            max-width: 420px; /* Lebar maksimal seperti iPhone */
+            margin: 0 auto;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #374151; /* Border tipis untuk kesan bingkai ponsel */
+            border-radius: 20px;
+        }
+
+        /* Gaya khusus untuk scrollbar agar tidak terlalu mengganggu */
+        .scrollable-content::-webkit-scrollbar {
+            width: 0;
+            height: 0;
+        }
+        .scrollable-content {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 font-sans text-white">
+    <div id="app-container" class="shadow-2xl">
+
+        <!-- HEADER APLIKASI DAN SEARCH BAR -->
+        <header class="p-4 pt-8 bg-primary-dark sticky top-0 z-10 border-b border-card-dark">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-3xl font-extrabold text-accent">Harmoni</h1>
+                <!-- Icon Profil -->
+                <button onclick="showMessage('Pengaturan Profil')" class="p-2 rounded-full bg-card-dark hover:bg-gray-700 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-gray-300">
+                        <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.61-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+            <div class="relative">
+                <input type="text" placeholder="Cari lagu, artis, atau podcast..." class="w-full py-2 pl-10 pr-4 bg-card-dark border border-gray-700 rounded-full text-sm text-white placeholder-gray-500 focus:ring-accent focus:border-accent" onfocus="showMessage('Membuka Pencarian Lengkap')">
+                <!-- Icon Pencarian di dalam input -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-4 h-4 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </div>
+        </header>
+
+        <!-- KONTEN UTAMA APLIKASI (Area yang dapat di-scroll) -->
+        <main class="flex-grow overflow-y-auto p-4 scrollable-content pb-28"> 
+            
+            <!-- Banner Utama (Iklan Premium) -->
+            <div class="bg-accent p-4 rounded-xl shadow-lg mb-6 flex items-center space-x-4 text-white hover:bg-accent-light transition duration-200 cursor-pointer" onclick="showMessage('Upgrade ke Premium!')">
+                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-lg flex items-center justify-center">
+                    <!-- Icon Mahkota (Crown) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-white">
+                        <path fill-rule="evenodd" d="M12.316 3.051A.75.75 0 0 1 12 3.75v5.118l-.879.585A1.5 1.5 0 0 1 9.75 9h-3a1.5 1.5 0 0 1-1.403-1.032l-1.354 3.659A2.25 2.25 0 0 0 6 12.75h12a2.25 2.25 0 0 0 2.007-1.453l-1.354-3.659A1.5 1.5 0 0 1 14.25 9h-3a1.5 1.5 0 0 1-1.437-.956l-.879-.585V3.75c0-.414.324-.747.72-.692ZM12 12c-4.142 0-7.5 3.134-7.5 7s3.358 7 7.5 7 7.5-3.134 7.5-7-3.358-7-7.5-7Z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-sm font-semibold opacity-90">Nikmati Tanpa Iklan</p>
+                    <h2 class="text-xl font-bold">Coba Premium Sekarang</h2>
+                </div>
+            </div>
+
+            <!-- Bagian Moods dan Aktivitas -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">Moods & Aktivitas</h2>
+                <div class="grid grid-cols-3 gap-3">
+                    <div onclick="showMessage('Memuat: Fokus Bekerja')" class="h-24 bg-purple-700 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Fokus</div>
+                    <div onclick="showMessage('Memuat: Lari Pagi Pop')" class="h-24 bg-green-700 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Olahraga</div>
+                    <div onclick="showMessage('Memuat: Chill Malam Hari')" class="h-24 bg-pink-700 rounded-xl flex items-center justify-center text-sm font-bold shadow-md cursor-pointer hover:opacity-90 transition">Santai</div>
+                </div>
+            </section>
+            
+            <!-- Bagian Rekomendasi Hari Ini -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">Rekomendasi Hari Ini</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Kartu Lagu/Album 1 -->
+                    <div onclick="selectSong('Senja di Jakarta', 'Band Indie', 255)" class="card bg-card-dark p-3 rounded-xl hover:bg-gray-800 transition duration-200 cursor-pointer">
+                        <img src="https://placehold.co/150x150/3B82F6/ffffff?text=Senja" onerror="this.src='https://placehold.co/150x150/3B82F6/ffffff?text=Senja';" alt="Album Cover A" class="w-full h-auto rounded-lg mb-2 shadow-md">
+                        <h3 class="font-semibold truncate">Senja di Jakarta</h3>
+                        <p class="text-sm text-gray-400 truncate">Band Indie</p>
+                    </div>
+                    <!-- Kartu Lagu/Album 2 -->
+                    <div onclick="selectSong('Cinta Tak Biasa', 'Penyanyi Pop', 180)" class="card bg-card-dark p-3 rounded-xl hover:bg-gray-800 transition duration-200 cursor-pointer">
+                        <img src="https://placehold.co/150x150/FBBF24/1F2937?text=Cinta" onerror="this.src='https://placehold.co/150x150/FBBF24/1F2937?text=Cinta';" alt="Album Cover B" class="w-full h-auto rounded-lg mb-2 shadow-md">
+                        <h3 class="font-semibold truncate">Cinta Tak Biasa</h3>
+                        <p class="text-sm text-gray-400 truncate">Penyanyi Pop</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bagian Genre Populer -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold mb-4">Genre Populer</h2>
+                <div class="flex space-x-3 overflow-x-auto scrollable-content pb-2">
+                    <!-- Genre Card 1 -->
+                    <div onclick="showMessage('Memuat Genre: Jazz')" class="flex-shrink-0 w-28 h-28 bg-red-600 rounded-xl flex items-end p-3 font-bold shadow-md hover:opacity-80 transition cursor-pointer">Jazz</div>
+                    <!-- Genre Card 2 -->
+                    <div onclick="showMessage('Memuat Genre: Rock')" class="flex-shrink-0 w-28 h-28 bg-yellow-600 rounded-xl flex items-end p-3 font-bold shadow-md hover:opacity-80 transition cursor-pointer">Rock</div>
+                    <!-- Genre Card 3 -->
+                    <div onclick="showMessage('Memuat Genre: Akustik')" class="flex-shrink-0 w-28 h-28 bg-green-600 rounded-xl flex items-end p-3 font-bold shadow-md hover:opacity-80 transition cursor-pointer">Akustik</div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- MINI PLAYER BAR (Fixed di Bawah, Ditingkatkan) -->
+        <div id="mini-player" class="mini-player fixed bottom-16 left-0 right-0 max-w-lg mx-auto p-3 bg-card-dark rounded-xl shadow-2xl transition-transform duration-300 ease-in-out transform translate-y-full opacity-0 z-20" style="left: 50%; transform: translateX(-50%) translateY(100%); max-width: 400px;">
+            <!-- Track Info & Controls -->
+            <div class="flex items-center space-x-3">
+                <img id="player-cover" src="https://placehold.co/40x40/ffffff/121212?text=🎶" alt="Cover" class="w-10 h-10 rounded-lg shadow">
+                <div class="flex-grow overflow-hidden">
+                    <p id="player-song-title" class="text-sm font-bold truncate text-white">Tidak ada lagu</p>
+                    <p id="player-artist" class="text-xs text-gray-400 truncate">Pilih lagu untuk diputar</p>
+                </div>
+                <div class="flex space-x-3">
+                    <!-- Tombol Putar/Jeda -->
+                    <button id="play-pause-btn" onclick="togglePlayPause()" class="p-2 rounded-full text-white bg-accent hover:bg-accent-light transition duration-150">
+                        <!-- Icon Putar (Play) - Tampilan default -->
+                        <svg id="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286l-11.54 6.348c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clip-rule="evenodd" />
+                        </svg>
+                        <!-- Icon Jeda (Pause) - Tampilan saat diputar -->
+                        <svg id="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 hidden">
+                            <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 0 1 .75-.75H9a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75H7.5a.75.75 0 0 1-.75-.75V5.25Zm7.5 0a.75.75 0 0 1 .75-.75H16.5a.75.75 0 0 1 .75.75v13.5a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1-.75-.75V5.25Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <!-- Tombol Berikutnya -->
+                    <button onclick="showMessage('Lagu Berikutnya')" class="p-2 rounded-full text-white bg-gray-700 hover:bg-gray-600 transition duration-150">
+                        <!-- Icon Berikutnya (Skip Forward) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M5.5 4.5A.5.5 0 0 1 6 4h.5a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-15ZM10.293 11.207a1 1 0 0 1 0 1.586l7.707 5.78V5.428l-7.707 5.78Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Progress Bar (Baru) -->
+            <div class="mt-3 flex items-center space-x-2 text-xs text-gray-400">
+                <span id="current-time">0:00</span>
+                <div class="flex-grow h-1 bg-gray-700 rounded-full">
+                    <div id="progress-bar" class="h-1 bg-accent rounded-full transition-all duration-1000" style="width: 0%;"></div>
+                </div>
+                <span id="total-time">0:00</span>
+            </div>
+        </div>
+
+        <!-- NAVIGATION BAR (Fixed di Bawah) -->
+        <nav class="fixed bottom-0 left-0 right-0 max-w-lg mx-auto p-3 bg-primary-dark border-t border-card-dark z-30" style="max-width: 420px;">
+            <div class="flex justify-around items-center">
+                <!-- Beranda -->
+                <button onclick="showMessage('Halaman Beranda')" class="flex flex-col items-center text-accent">
+                    <!-- Icon Beranda (Home) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.67 8.67a.75.75 0 0 1-1.06 1.06l-8.157-8.156a.5.5 0 0 0-.57 0l-8.156 8.157a.75.75 0 1 1-1.06-1.06l8.67-8.67Z" />
+                        <path d="m12 7.5-.757.643-.548.402A8.96 8.96 0 0 0 7.5 21a1.5 1.5 0 0 1-3 0v-3.375C4.5 13.92 7.029 11.45 10.325 10.776a3 3 0 1 1 3.35 0C16.971 11.45 19.5 13.92 19.5 17.625V21a1.5 1.5 0 0 1-3 0A8.96 8.96 0 0 0 12.757 8.545l-.548-.402L12 7.5Z" />
+                    </svg>
+                    <span class="text-xs mt-1 font-semibold">Beranda</span>
+                </button>
+                <!-- Jelajahi -->
+                <button onclick="showMessage('Halaman Jelajahi')" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+                    <!-- Icon Kompas (Explore) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                    <span class="text-xs mt-1">Jelajahi</span>
+                </button>
+                <!-- Perpustakaan -->
+                <button onclick="showMessage('Halaman Perpustakaan')" class="flex flex-col items-center text-gray-400 hover:text-white transition">
+                    <!-- Icon Buku (Library) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3.051.513A3.075 3.075 0 0 0 3 9.75v10.5M12 6.042A8.967 8.967 0 0 1 18 3.75c1.052 0 2.062.18 3.051.513A3.075 3.075 0 0 1 21 9.75v10.5M12 6.042V21m0-10.5H5.25M12 17.25h4.5" />
+                    </svg>
+                    <span class="text-xs mt-1">Perpustakaan</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Custom Message Box for alerts -->
+        <div id="message-box" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-none z-50">
+            <div class="bg-card-dark p-6 rounded-xl shadow-2xl max-w-xs w-full text-center">
+                <p id="message-content" class="text-lg font-medium text-white mb-4"></p>
+                <button onclick="closeMessage()" class="w-full py-2 bg-accent rounded-lg font-bold hover:bg-accent-light transition">Tutup</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Variabel Global untuk status pemutar
+        let isPlaying = false;
+        let currentSong = { title: null, artist: null, duration: 0, timeElapsed: 0 };
+        let progressInterval = null;
+
+        const miniPlayer = document.getElementById('mini-player');
+        const playerTitle = document.getElementById('player-song-title');
+        const playerArtist = document.getElementById('player-artist');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const playerCover = document.getElementById('player-cover');
+        
+        // Elemen Progress Bar (Baru)
+        const progressBar = document.getElementById('progress-bar');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const totalTimeDisplay = document.getElementById('total-time');
+
+        // Helper untuk format detik ke MM:SS
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = Math.floor(totalSeconds % 60);
+            return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // --- Fungsi Modal Message Box (Pengganti alert) ---
+        function showMessage(content) {
+            const messageBox = document.getElementById('message-box');
+            document.getElementById('message-content').innerText = content;
+            messageBox.classList.remove('opacity-0', 'pointer-events-none');
+            messageBox.classList.add('opacity-100');
+        }
+
+        function closeMessage() {
+            const messageBox = document.getElementById('message-box');
+            messageBox.classList.add('opacity-0', 'pointer-events-none');
+            messageBox.classList.remove('opacity-100');
+        }
+        
+        // --- Fungsi Pemutar Musik ---
+
+        /**
+         * Memilih lagu dan mengaktifkan mini player.
+         * @param {string} title - Judul lagu.
+         * @param {string} artist - Nama artis/band.
+         * @param {number} duration - Durasi lagu dalam detik.
+         */
+        function selectSong(title, artist, duration) {
+            // Hentikan interval lama jika ada
+            clearInterval(progressInterval);
+            
+            // Inisialisasi lagu baru
+            currentSong = { title, artist, duration, timeElapsed: 0 };
+            
+            // Perbarui UI mini player
+            playerTitle.innerText = title;
+            playerArtist.innerText = artist;
+            playerCover.src = "https://placehold.co/40x40/3B82F6/ffffff?text=🎶";
+            totalTimeDisplay.innerText = formatTime(duration);
+            
+            // Tampilkan mini player
+            miniPlayer.style.transform = 'translateX(-50%) translateY(0)';
+            miniPlayer.style.opacity = '1';
+            
+            // Mulai putar secara otomatis setelah dipilih
+            setPlaying(true);
+            showMessage(`Memutar: ${title} - ${artist}`);
+        }
+
+        /**
+         * Mengubah status Putar/Jeda.
+         */
+        function togglePlayPause() {
+            if (!currentSong.title) {
+                showMessage("Pilih lagu terlebih dahulu!");
+                return;
+            }
+            setPlaying(!isPlaying);
+            showMessage(isPlaying ? "Lagu Dijeda" : "Lagu Diputar");
+        }
+
+        /**
+         * Mengatur status pemutaran dan memperbarui ikon serta loop progres.
+         * @param {boolean} state - true untuk Putar, false untuk Jeda.
+         */
+        function setPlaying(state) {
+            isPlaying = state;
+            
+            if (isPlaying) {
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                
+                // Mulai simulasi progres (setiap 1 detik)
+                progressInterval = setInterval(updateProgress, 1000);
+            } else {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                
+                // Jeda simulasi progres
+                clearInterval(progressInterval);
+            }
+        }
+        
+        /**
+         * Memperbarui bilah progres dan waktu lagu (simulasi).
+         */
+        function updateProgress() {
+            if (currentSong.timeElapsed < currentSong.duration) {
+                currentSong.timeElapsed += 1;
+                
+                const percent = (currentSong.timeElapsed / currentSong.duration) * 100;
+                progressBar.style.width = `${percent}%`;
+                currentTimeDisplay.innerText = formatTime(currentSong.timeElapsed);
+                
+            } else {
+                // Lagu selesai
+                clearInterval(progressInterval);
+                currentSong.timeElapsed = 0;
+                progressBar.style.width = '0%';
+                setPlaying(false);
+                showMessage(`Selesai: ${currentSong.title}. Memutar ulang.`);
+                // Opsi: Panggil selectSong lagi untuk putar ulang
+                selectSong(currentSong.title, currentSong.artist, currentSong.duration);
+            }
+        }
+
+        // Pastikan mini-player muncul di posisi yang benar saat dimuat
+        window.addEventListener('load', () => {
+             // Atur posisi awal mini player (tersembunyi)
+             miniPlayer.style.bottom = '4.5rem'; 
+             miniPlayer.style.left = '50%';
+             miniPlayer.style.transform = 'translateX(-50%) translateY(100%)';
+             miniPlayer.style.opacity = '0';
+        });
+
+    </script>
+</body>
+</html>
